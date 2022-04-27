@@ -58,6 +58,7 @@ db.flightData.updateOne( { "_id" : ObjectId("626759b80b453f0768934cb5")}, {delay
 
 db.flightData.updateMany( { "_id" : ObjectId("626759b80b453f0768934cb5")}, {delayed: false})
 
+
 db.flightData.update( { "_id" : ObjectId("626759b80b453f0768934cb5")}, {delayed: false})
 
 //Insert passengers 
@@ -188,4 +189,14 @@ db.flightData.updateMany(
         }
     }
 )
+
+-- Update array data in passengers collection
+
+db.passengers.updateOne(
+  {name: "Albert Twostone"}, 
+  {$set: {hobbies: ["sports", "reading", "cooking"]} } 
+)
+
+db.passengers.findOne({name: "Albert Twostone"}).hobbies
+
 
