@@ -218,3 +218,79 @@ db.customers.updateOne(
         }
     }
 )
+
+---------------
+-- Many to many -> Books and authors
+
+use bookRegistry 
+
+--Approach 1
+db.books.insertOne(
+    {
+        name: "My Fav Book", 
+        authors: [
+            {
+                name: "Venkat",
+                age: 32
+            },
+            {
+                name: "Sai",
+                age: 28
+            }
+        ]
+    }
+)
+
+db.authors.insertMany([
+    {
+        name: "Venkat",
+        age: 32,
+        address: {
+            city: "Bangalore"
+        }
+    },
+    {
+        name: "Sai",
+        age: 28,
+        address: {
+            city: "Chennai",
+            street: "Thambuchetty Street"
+        }
+    }
+])
+
+-- author ids
+--  "acknowledged" : true,
+--         "insertedIds" : [
+--                 ObjectId("6269f208e3f0584eef343fd1"),
+--                 ObjectId("6269f208e3f0584eef343fd2")
+--         ]
+
+db.books.updateOne(
+    {},
+    {
+        $set : {
+            authors: [
+                ObjectId("6269f208e3f0584eef343fd1"),
+                ObjectId("6269f208e3f0584eef343fd2")
+            ]
+        }
+    }
+)
+
+--- $lookup query for join 
+
+db.books.aggregate(
+    [
+        {
+            $lookup : {
+                from: "authors",
+                localField: "authors", 
+                foreignField: "_id",
+                as: "creators"
+            }
+        }
+    ]
+).pretty()
+
+
