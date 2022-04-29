@@ -279,7 +279,6 @@ db.books.updateOne(
 )
 
 --- $lookup query for join 
-
 db.books.aggregate(
     [
         {
