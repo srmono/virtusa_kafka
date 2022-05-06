@@ -365,6 +365,137 @@ db.moviestats.insertMany([
     }
 ])
 
+db.moviestats.insertMany([
+    {
+        title: "Supercharged Teaching",
+        meta: {
+            rating: 9.3,
+            aired: 2016,
+            runtime: 60
+        },
+        visitors: 370000,
+        expectedVisitors: 1000000,
+        genres: [
+            "thriller",
+            "action"
+        ]
+    }
+])
+
+
+
+db.moviestats.find({ genres: ["action", "thriller"] }).pretty()
+db.moviestats.find({ genres: { $all: ["action", "thriller"]} }).pretty()
+
+-------------------------------------
+use user 
+
+db.users.find().pretty()
+
+db.users.find({
+    $and: [
+        {"hobbies.title": "Sports"},
+        {"hobbies.frequency": {
+            $gte: 2
+        }}
+    ]
+}).pretty()
+
+
+db.users.find({
+    hobbies: {
+        $elemMatch: {
+            title: "Sports",
+            frequency: {
+                $gte: 3
+            }
+        }
+    }
+}).pretty()
+
+------------------------------------
+
+-- cursor
+
+db.movies.find().count()
+240
+
+db.movies.find().pretty()
+
+-- cursor it 
+
+-- it 
+-- it 
+-- it 
+
+
+db.movies.find().next()
+
+const dataCursor = db.movies.find()
+
+dataCursor.next()
+
+dataCursor.forEach( doc => { printjson(doc) } )
+
+dataCursor.next();
+dataCursor.hasNext();
+-------------------------
+
+
+db.movies.find().sort({ "rating.average": 1 }).pretty()
+
+db.movies.find().sort({ "rating.average": 1, runtime: -1 }).pretty()
+
+db.movies.find().sort({ "rating.average": 1, runtime: -1 }).sort({"rating.average": 1}).pretty()
+
+db.movies.find().sort({ "rating.average": 1, runtime: -1 }).sort({"rating.average": 1}).skip(100).pretty()
+
+
+db.movies.find().sort({ "rating.average": 1, runtime: -1 }).sort({"rating.average": 1}).skip(100).count()
+
+
+-- Include specific fields
+db.movies.find({}, {name: 1, runtime: 1} ).pretty()
+db.movies.find({}, {name: 1, runtime: 1, _id:0} ).pretty()
+
+db.movies.find({}, {name: 1, genres: 1, runtime: 1, "rating.average": 1,  "schedule.time": 1, _id:0} ).pretty()
+
+db.movies.find({genres: "Drama"}).pretty()
+
+db.movies.find({genres: "Drama"}, {"genres.$": 1} ).pretty()
+
+db.movies.find( 
+    {
+        genres: {
+            $all: ["Drama", "Horror"]
+        } 
+    },
+    {"genres.$": 1}
+).pretty()
+
+db.movies.find(
+    {genres: "Drama"},
+    {
+        genres: {
+            $elemMatch: {
+                $eq: "Horror"
+            }
+        }
+    }
+).pretty()
+
+-------------------------------------
+
+
+db.movies.find(
+    {"rating.average": { $gt: 9}},
+    { genres: {$slice: 2}, name: 1 }
+).pretty()
+
+
+
+
+
 
 
 
