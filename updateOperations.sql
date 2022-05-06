@@ -83,6 +83,93 @@ db.users.updateMany({}, { $rename : { age: "totalAge" }})
 
 -- Understanding Upsert()
 
+db.users.updateOne(
+    { name: "Maria"},
+    { $set: {
+        age: 29,
+        hobbies: [
+            {
+                title: "Good food",
+                frequency: 3
+            }
+        ],
+        isSporty: true
+    }}
+)
+
+db.users.updateOne(
+    { name: "Maria"},
+    { $set: {
+        age: 29,
+        hobbies: [
+            {
+                title: "Good food",
+                frequency: 3
+            }
+        ],
+        isSporty: true
+    }},
+    { upsert: true}
+)
+
+------------------------------------
+-- Updating array elements
+
+-- find and update 
+
+db.users.find({
+    $and: [
+        { "hobbies.title": "Sports"},
+        { "hobbies.frequency": {$gte: 3}}
+    ]
+}).pretty()
+
+
+db.users.find(
+    {
+        hobbies: {
+            $elemMatch: {
+                title: "Sports",
+                frequency: {
+                    $gte: 3
+                }
+            }
+        }
+    }
+).pretty()
+
+
+db.users.find(
+    {
+        hobbies: {
+            $elemMatch: {
+                title: "Sports",
+                frequency: {
+                    $gte: 3
+                }
+            }
+        }
+    }
+).count()
+> 2
+
+db.users.updateMany(
+    {
+        hobbies: {
+            $elemMatch: {
+                title: "Sports",
+                frequency: {
+                    $gte: 3
+                }
+            }
+        }
+    },
+    {
+        $set: {
+            "hobbies.$.highFrequency": true
+        }
+    }
+)
 
 
 
