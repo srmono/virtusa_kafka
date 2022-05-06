@@ -171,7 +171,87 @@ db.users.updateMany(
     }
 )
 
+db.users.find({"hobbies.frequency": {$gt: 2} }).pretty()
+db.users.find({"hobbies.frequency": {$gt: 2} }).count()
 
+db.users.updateMany(
+    {"hobbies.frequency": {$gt: 2} },
+    {
+       $set: {
+            "hobbies.$.goodFrequency": true
+        }
+    }
+)
+
+db.users.updateMany(
+    {"hobbies.frequency": {$gt: 2} },
+    {
+       $set: {
+            "hobbies.$[el].goodFrequency": true
+        }
+    },
+    {
+        arrayFilters: [ {"el.frequency": { $gt: 2 }} ]
+    }
+)
+
+---------------
+
+db.users.find( {totalAge: {$gt: 30}}).pretty()
+
+
+db.users.updateMany( 
+    {totalAge: {$gt: 30}},
+    { $inc: {
+        "hobbies.frequency": -1
+    }}
+)
+
+
+db.users.updateMany( 
+    {totalAge: {$gt: 30}},
+    { $inc: {
+        "hobbies.$[].frequency": -1
+    }}
+)
+
+---------------------------
+-- Add Elements to an Array
+
+db.users.updateOne(
+    {name: "Maria"},
+    {
+        $push: {
+            hobbies: {
+                title: "Sports",
+                frequency: 2
+            }
+        }
+    }
+)
+-- if you execute multiple time's it add duplicate value
+db.users.updateOne(
+    {name: "Maria"},
+    {
+        $push: {
+            hobbies: {
+                title: "Sports",
+                frequency: 2
+            }
+        }
+    }
+)
+
+db.users.updateOne(
+    {name: "Maria"},
+    {
+        $push: {
+            hobbies: {
+                
+            }
+        }
+    }
+)
 
 
 
