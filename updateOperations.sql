@@ -230,6 +230,7 @@ db.users.updateOne(
     }
 )
 -- if you execute multiple time's it add duplicate value
+-- $push operator
 db.users.updateOne(
     {name: "Maria"},
     {
@@ -247,15 +248,44 @@ db.users.updateOne(
     {
         $push: {
             hobbies: {
-                
+                $each: [
+                    { title: "Good wine", frequency: 1},
+                    { title: "Hiking", frequency: 2},
+                ],
+                $sort: {frequency: -1}
             }
         }
     }
 )
 
+-- $pull operator
+db.users.updateOne(
+    {name: "Maria"},
+    {
+        $pull: {
+            hobbies: {title: "Good wine"}
+        }
+    }
+)
 
 
+-- $pop 
+db.users.updateOne(
+    {name: "Chris"},
+    { $pop: {hobbies: 1}}
+)
 
+
+-- $addToSet
+
+db.users.updateOne(
+    {name: "Maria"},
+    {
+        $addToSet: {
+            hobbies: {title: "Hiking", frequency: 2}
+        }
+    }
+)
 
 
 
