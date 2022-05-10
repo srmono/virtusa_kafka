@@ -199,7 +199,6 @@ db.customers.insertMany(
 )
 
 db.customers.createIndex({name: 1})
-
 db.customers.explain("executionStats").find({name: "Venkat"})
 db.customers.explain("allPlansExecution").find({name: "Venkat"})
 
@@ -207,11 +206,8 @@ db.customers.explain("allPlansExecution").find({name: "Venkat"})
 -- How mongo rejects a plan
 
 db.customers.getIndexes()
-
 db.customers.createIndex( {age: 1, name: 1})
-
 db.customers.explain("allPlansExecution").find({ name: "Manu", age: 45} )
-
 db.customers.explain("allPlansExecution").find({ age: 32,name: "Venkat"})
 
 --Cleaning the winning plan from cache?
@@ -221,3 +217,107 @@ Stored forever?
     when indexes are rebuild
     other indexes are added or removed
     Mongo db server restored 
+-----------------------------------------------
+
+-- Multi - key indexes 
+
+use contactData
+db.contacts.drop()
+
+db.contacts.insertOne(
+    {
+        name: "Venkat",
+        hobbies: ["Cooking", "Sports"],
+        addresses: [
+            {
+                street: "Main Street"
+            },
+            {
+                street: "Second Street"
+            }
+        ]
+    }
+)
+
+db.contacts.createIndex({ hobbies: 1})
+
+db.contacts.find({hobbies: "Sports"}).pretty()
+
+db.contacts.explain("executionStats").find({hobbies: "Sports"})
+
+
+db.contacts.createIndex({ addresses: 1})
+
+db.contacts.explain("executionStats").find({ "addresses.street": "Main Street"})
+
+db.contacts.explain("executionStats").find({
+    addresses: {
+        street: "Main Street"
+    }
+})
+
+db.contacts.createIndex({ name: 1, hobbies: 1})
+
+db.contacts.createIndex({ addresses: 1, hobbies: 1})
+
+-------------------------------
+-- Text indexes
+
+db.products.insertMany(
+    [
+        {
+            title: "A Book",
+            description: "This is an awesome book about a young artist!"
+        },
+        {
+            title: "Red T-Shirt",
+            description: "This T-Shirt is red and it's pretty awesome"
+        }
+    ]
+)
+
+db.products.createIndex({description: 1})
+db.products.dropIndex({description: 1})
+
+db.products.createIndex({description: "text"})
+
+db.products.find( { $text : {
+    $search: "awesome"
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "book"
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "red book"
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "\"red book\""
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "\"awesome book\""
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "awesome t-shirt"
+}}).pretty()
+
+db.products.find(
+    {
+        $text: {
+            $search: "awesome t-shirt"
+        }
+    },
+    {
+        score: { 
+            $meta: "textScore"
+        }
+    }
+).pretty()
+
+db.products.getIndexes()
+
+db.products.dropIndex("description_text")
