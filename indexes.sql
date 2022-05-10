@@ -321,3 +321,70 @@ db.products.find(
 db.products.getIndexes()
 
 db.products.dropIndex("description_text")
+
+db.products.createIndex( { title: "text", description: "text"})
+
+db.products.insertOne({
+    title: "A Ship",
+    description: "Floats perfectly!"
+})
+
+db.products.find( { $text : {
+    $search: "ship some"
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "awesome"
+}}).pretty()
+
+db.products.find( { $text : {
+    $search: "awesome -t-shirt"
+}}).pretty()
+
+db.products.getIndexes()
+
+db.products.dropIndex("title_text_description_text")
+
+
+db.products.createIndex( 
+    { title: "text", description: "text"},
+    { 
+        default_language: "english",
+        weights: {
+            title: 1,
+            description: 10
+        }
+    }
+)
+
+
+db.products.find({
+    $text: {
+        $search: "",
+        $language: "german",
+        $caseSensitive: true
+    }
+})
+
+db.products.find(
+    {
+        $text: {
+            $search: "red"
+        }
+    },
+    {
+        score: { 
+            $meta: "textScore"
+        }
+    }
+).sort({score: { $meta: "textScore"}})
+
+db.products.dropIndex("title_text_description_text")
+
+
+db.products.createIndex( 
+    { title: "text", description: "text"},
+    { 
+        default_language: "english"
+    }
+)
