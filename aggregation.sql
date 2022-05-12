@@ -13,3 +13,4 @@ db.persons.aggregate(
 db.persons.aggregate(
     { $project: {_id: 0, gender: 1, fullName: { $concat: ["Hello" , " ", "World"]  } } }
 )
+
