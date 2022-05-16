@@ -15,6 +15,17 @@ data2
 	db
 	log
 
+*** config directory create mongo.cfg file 
+
+dbpath=C:\data1\db\path
+logpath=C:\data1\log\mongod.log\
+port=27020
+
+** log directory create log file 
+mongod.log
+
+
+
 ***open command prompt as an admin
 cd C:\Program Files\MongoDB\Server\4.4\bin
 
