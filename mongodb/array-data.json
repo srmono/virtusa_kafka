@@ -28,5 +28,6 @@
       { "difficulty": 8, "score": 44.2 },
       { "difficulty": 6, "score": 61.5 }
     ]
-  }
+  },
+  { "_id": "mongoSet", "version": 1, "members": [ {"_id": 0, "host": "4d87df2d29c9:27071"}, {"_id": 1, "host": "786320853aaa:27071"}, {"_id": 2, "host": "ce1ebc96ed9c:27071"} ] }
 ]

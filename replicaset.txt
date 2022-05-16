@@ -1,0 +1,48 @@
+
+Replica Set
+
+Standalone server
+C:\Program Files\MongoDB\Server\4.4\bin
+
+
+Primary Server
+
+2 secondary servers
+
+data1
+data2
+	config
+	db
+	log
+
+***open command prompt as an admin
+cd C:\Program Files\MongoDB\Server\4.4\bin
+
+**Primary Server
+mongod --dbpath "C:\Program Files\MongoDB\Server\4.4\data" --logpath "C:\Program Files\MongoDB\Server\4.4\log\mongod.log" --port 27071 --storageEngine=wiredTiger --journal --replset virtusarepl
+
+** 1st secondary server 27020 
+mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 --storageEngine=wiredTiger --journal --replSet virtusarepl
+
+
+** 2nd secondary server 27021
+mongod --dbpath "C:\data2\db" --logpath "C:\data2\log\mongod.log" --port 27021 --storageEngine=wiredTiger --journal --replSet virtusarepl
+
+** connect to primary server
+opne new command prompt
+mongo --port 27071
+
+-- create variable
+rsconfig = {_id:"virtusarepl", members:[{_id:0, host:"localhost:27071"}] }
+
+-- initiate replication 
+
+rs.initiate(rsconfig)
+
+rs.status()
+
+------------------------------------------------------------
+
+
+
+

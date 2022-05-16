@@ -380,3 +380,97 @@ db.persons.aggregate([
         }
     }
 ]).pretty()
+
+-- add more stages and write into new colection
+
+db.persons.aggregate([
+    { $match: { gender: "male"}},
+    { $project: { _id: 0, gender: 1, location:1, name: { $concat: [ "$name.first", " ", "$name.last"]}, birthdDate: { $toDate: "$dob.date"} }},
+    { $sort: {birthdDate: 1}},
+    { $skip: 10},
+    { $limit: 10},
+    { $out: "transformedPersonsTwo"}
+]).pretty()
+
+--$geoNear stage 
+
+-- convert into geo object and insert into new collection
+db.persons.aggregate([
+    {
+        $project: {
+            _id: 0,
+            name: 1,
+            email: 1,
+            location: {
+                type: "Point",
+                coordinates: [
+                    {
+                        $convert: {
+                            input: '$location.coordinates.longitude',
+                            to: 'double',
+                            onError: 0.0,
+                            onNull: 0.0
+                        }
+                    },
+                    {
+                        $convert: {
+                            input: '$location.coordinates.latitude',
+                            to: 'double',
+                            onError: 0.0,
+                            onNull: 0.0
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    { 
+        $project: {
+            gender: 1, 
+            email: 1,
+            location: 1,
+            fullName: { 
+                $concat: [
+                    {$toUpper: { $substrCP: ['$name.first', 0, 1] } },
+                    {
+                        $substrCP: [
+                            '$name.first',
+                            1,
+                            { $subtract: [{ $strLenCP: '$name.first'}, 1 ]}
+                            ]
+                    },
+                     " ",
+                    {$toUpper: { $substrCP: ['$name.last', 0, 1] } },
+                    {
+                        $substrCP: [
+                            '$name.last',
+                            1,
+                            { $subtract: [{ $strLenCP: '$name.last'}, 1 ]}
+                            ]
+                    }
+                ]  
+            } 
+        } 
+    },
+    { $out: "geoPersons"}
+]).pretty()
+
+-- create index
+
+db.geoPersons.createIndex({location: "2dsphere"})
+
+db.geoPersons.aggregate([
+    {
+        $geoNear: {
+            near:{
+                type: "Point",
+                coordinates: [ 168.9462, -22.5329]
+            },
+            maxDistance:1000,
+            query: { age: { $gt: 30}},
+            distanceField: "distance"
+        }
+    }
+]).pretty()
+
+------------------------------------------
