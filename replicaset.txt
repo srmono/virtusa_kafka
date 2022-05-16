@@ -5,32 +5,41 @@ Standalone server
 C:\Program Files\MongoDB\Server\4.4\bin
 
 
-Primary Server
-
+one Primary Server
 2 secondary servers
 
-data1
-data2
+create data1  & data2 directories 
+Inside the data1  & data2 directories create following directories
 	config
 	db
 	log
 
-*** config directory create mongo.cfg file 
+*** inside config directory create mongo.cfg file 
+******note: ensure directory path is correct******
+ex:-
+C:\data1\
+C:\data2\
 
 dbpath=C:\data1\db\path
 logpath=C:\data1\log\mongod.log\
 port=27020
 
-** log directory create log file 
+** inside log directory create log file 
 mongod.log
-
-
 
 ***open command prompt as an admin
 cd C:\Program Files\MongoDB\Server\4.4\bin
 
 **Primary Server
 mongod --dbpath "C:\Program Files\MongoDB\Server\4.4\data" --logpath "C:\Program Files\MongoDB\Server\4.4\log\mongod.log" --port 27071 --storageEngine=wiredTiger --journal --replset virtusarepl
+
+mongod 
+    --dbpath "C:\Program Files\MongoDB\Server\4.4\data" 
+    --logpath "C:\Program Files\MongoDB\Server\4.4\log\mongod.log" 
+    --port 27071 
+    --storageEngine=wiredTiger 
+    --journal 
+    --replset virtusarepl
 
 ** 1st secondary server 27020 
 mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 --storageEngine=wiredTiger --journal --replSet virtusarepl
@@ -39,8 +48,9 @@ mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 -
 ** 2nd secondary server 27021
 mongod --dbpath "C:\data2\db" --logpath "C:\data2\log\mongod.log" --port 27021 --storageEngine=wiredTiger --journal --replSet virtusarepl
 
+
 ** connect to primary server
-opne new command prompt
+open new command prompt
 mongo --port 27071
 
 -- create variable
@@ -51,6 +61,9 @@ rsconfig = {_id:"virtusarepl", members:[{_id:0, host:"localhost:27071"}] }
 rs.initiate(rsconfig)
 
 rs.status()
+
+rs.add("localhost:27020")
+rs.add("localhost:27021")
 
 ------------------------------------------------------------
 
