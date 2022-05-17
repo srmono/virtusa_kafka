@@ -1,0 +1,59 @@
+--- cd kafka directory
+
+--Start zookeeper
+C:\kafka>
+C:\kafka> .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+-- Start kafka
+
+C:\kafka>
+C:\kafka> .\bin\windows\kafka-server-start.bat .\config\server.properties
+
+-- Create Topic
+
+C:\kafka>
+C:\kafka> .\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic MyFirstTopic
+
+.\bin\windows\kafka-topics.bat 
+    --create 
+    --zookeeper localhost:2181 
+    --replication-factor 1 
+    --partitions 1 
+    --topic MyFirstTopic
+
+-- List topics
+.\bin\windows\kafka-topics.bat --list --zookeeper localhost:2181
+
+--------------------------------------------
+-- Create messages with kafka producer
+
+C:\kafka>
+C:\kafka> .\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic MyFirstTopic 
+
+.\bin\windows\kafka-console-producer.bat 
+    --broker-list localhost:9092 
+    --topic MyFirstTopic 
+
+--------------------------------------------
+-- consume messages with kafka consumer
+
+C:\kafka>
+C:\kafka> .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic MyFirstTopic --from-beginning
+
+.\bin\windows\kafka-console-consumer.bat 
+    --bootstrap-server localhost:9092 
+    --topic MyFirstTopic 
+    --from-beginning
+
+
+topic 
+topics are split into partitions (partition 0, partition 1, ...)
+Each message with in the partition gets an incremental id, called offset 
+
+cars_gps  -> 
+    every 20 seconds message to kafa 
+    message: 
+        truck id
+        lat 
+        lon 
+default life span is one week 

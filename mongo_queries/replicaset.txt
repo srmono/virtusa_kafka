@@ -1,10 +1,9 @@
-
 Replica Set
 
 Standalone server
 C:\Program Files\MongoDB\Server\4.4\bin
 
-
+Create:
 one Primary Server
 2 secondary servers
 
@@ -66,7 +65,5 @@ rs.add("localhost:27020")
 rs.add("localhost:27021")
 
 ------------------------------------------------------------
-
-
 
 

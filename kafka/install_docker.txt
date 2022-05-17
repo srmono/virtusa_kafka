@@ -1,0 +1,24 @@
+
+-- Enable windows features on and off 
+controlpanel -> programs & features -> click on "windows features on and off"
+
+seelect
+    Hyper-V
+    windows subsystem for linux
+
+follow the steps and restart the system
+
+-- Manually install WSL 
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 
+
+
+-- Download Docker
+https://docs.docker.com/desktop/windows/install/
+
+
+-- Start Docker desktop
+
+
+
+
+
