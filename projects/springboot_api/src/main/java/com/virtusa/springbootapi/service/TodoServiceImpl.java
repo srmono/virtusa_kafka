@@ -1,6 +1,8 @@
 package com.virtusa.springbootapi.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.ConstraintDeclarationException;
@@ -29,6 +31,61 @@ public class TodoServiceImpl implements TodoService {
 			todoRepo.save(todo);
 		}
 	}
+
+	@Override
+	public List<TodoDTO> getAllTodos() {
+		List<TodoDTO> todos = todoRepo.findAll();
+		if(todos.size() > 0) {
+			return todos;
+		} else {
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public TodoDTO getSingleTodo(String id) throws TodoException {
+		Optional<TodoDTO> optionalTodo = todoRepo.findById(id);
+		if(!optionalTodo.isPresent()) {
+			throw new TodoException(TodoException.NotFoundException(id));
+		} else {
+			return optionalTodo.get();
+		}
+	}
+
+	@Override
+	public void updateTodo(String id, TodoDTO todo) throws TodoException {
+		Optional<TodoDTO> todoWithId = todoRepo.findById(id);
+		Optional<TodoDTO> todoWithSameName = todoRepo.findByTodo(todo.getTodo());
+		
+		if(todoWithId.isPresent()) {
+			
+			if( todoWithSameName.isPresent() && !todoWithSameName.get().getId().equals(id)) {
+				throw new TodoException(TodoException.TodoAlreadyExists());
+			}
+			
+			TodoDTO todoToUpdate = todoWithId.get();
+			
+			todoToUpdate.setTodo(todo.getTodo());
+			todoToUpdate.setDescription(todo.getDescription());
+			todoToUpdate.setCompleted(todo.getCompleted());
+			todoToUpdate.setUpdatedAt(new Date(System.currentTimeMillis()));
+			todoRepo.save(todoToUpdate);
+		} else {
+			throw new TodoException(TodoException.NotFoundException(id));
+		}
+	}
+
+	@Override
+	public void deleteTodoById(String id) throws TodoException {
+		Optional<TodoDTO> optionalTodo = todoRepo.findById(id);
+		if(!optionalTodo.isPresent()) {
+			throw new TodoException(TodoException.NotFoundException(id));
+		}else {
+			todoRepo.deleteById(id);
+		}
+	}
+
+	
 }
 
 

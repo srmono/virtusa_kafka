@@ -14,7 +14,7 @@ public class TodoException extends Exception {
 	}
 	
 	public static String NotFoundException(String id) {
-		return "Todo with " + id + "not found";
+		return "Todo with " + id + " not found";
 	}
 	
 	public static String TodoAlreadyExists() {
