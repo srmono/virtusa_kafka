@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.virtusa.springbootapi.model.TodoDTO;
 import com.virtusa.springbootapi.repository.TodoRepository;
+import com.virtusa.springbootapi.service.TodoService;
 
 
 @RestController
@@ -24,6 +25,9 @@ public class TodoController {
 	
 	@Autowired
 	private TodoRepository todoRepo;
+	
+	@Autowired
+	private TodoService todoService;
 	
 	@GetMapping("/todos")
 	public ResponseEntity<?> getAllTodos() { 
