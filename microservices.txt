@@ -1,0 +1,24 @@
+Create Department Service
+    packages:
+        controller
+        entity/model
+        repository
+        service
+
+
+{
+    "name": "venkat",
+    "hobbies": ["", "", "", "" ],
+    address: {
+        city: "bangalore"
+    }
+}
+
+
+name: venkat
+hobbies:
+- yoga
+- Service
+address: 
+  city: bangalore
+

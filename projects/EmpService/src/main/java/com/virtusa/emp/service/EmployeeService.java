@@ -36,11 +36,13 @@ public class EmployeeService {
 		
 		Department department = 
 				restTemplate.getForObject(
-						"http://localhost:8081/departments/"+ employee.getDepartmentId(), 
+						"http://DEAPARTMENT-SERVICE/departments/"+ employee.getDepartmentId(), 
 						Department.class
 						);
+		vo.setEmployee(employee);
+		vo.setDepartment(department);
 	
-		return null;
+		return vo;
 	}
 
 }
