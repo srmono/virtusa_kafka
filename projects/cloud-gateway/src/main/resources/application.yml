@@ -11,31 +11,35 @@ spring:
           uri: lb://EMPLOYEE-SERVICE
           predicates:
             - Path=/employees/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: EMPLOYEE-SERVICE
-                fallbackuri: forward:/empServiceFallback
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: EMPLOYEE-SERVICE
+#                fallbackuri: forward:/empServiceFallback
         - id: DEAPARTMENT-SERVICE
           uri: lb://DEAPARTMENT-SERVICE
           predicates:
             - Path=/departments/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: DEAPARTMENT-SERVICE
-                fallbackuri: forward:/departmentServiceFallback
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: DEAPARTMENT-SERVICE
+#                fallbackuri: forward:/departmentServiceFallback
      
            
-hystrix:
-  command:
-    fallbackcmd:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 4000
- 
-management:  endpoints:    web:      exposure:        include: hystrix.stream
+#hystrix:  
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 4000
+# 
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: hystrix.stream
 
 eureka:
   client:
