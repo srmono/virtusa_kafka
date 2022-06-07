@@ -1,0 +1,16 @@
+Create spring boot app for producer and consumer with gradle
+    dependencies: spring for kafka
+
+---------------------------------------------------------
+application.yml  initial config
+
+logging:
+  pattern:
+    console: "[Kafka Core Producer] %clr(%d{HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(---){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+  
+spring:
+  main:
+    banner-mode: OFF
+---------------------------------------------------------
+
+
