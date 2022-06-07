@@ -5,3 +5,6 @@ logging:
 spring:
   main:
     banner-mode: OFF
+  kafka:
+    consumer:
+      group-id: default-spring-consumer
