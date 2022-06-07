@@ -1,0 +1,12 @@
+Enter into docker container: docker exec -it [container_name or container_id] bash
+    docker exec -it kafka bash 
+
+Create topic
+***note: replication factor 2 must require multiple kafka nodes
+    kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-hello --partitions 1 --replication-factor 1
+
+List topics:
+    kafka-topics.sh --bootstrap-server localhost:9092 --list 
+
+Describe Topic:
+    kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic t-hello
