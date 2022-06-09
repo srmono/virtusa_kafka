@@ -5,5 +5,5 @@ logging:
 spring:
   main:
     banner-mode: OFF
-#  jackson:
-#    date-format: yyyy-MMM-dd
+  jackson:
+    date-format: yyyy-MMM-dd

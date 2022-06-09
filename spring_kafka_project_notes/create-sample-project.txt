@@ -12,5 +12,38 @@ spring:
   main:
     banner-mode: OFF
 ---------------------------------------------------------
+Producer and consumer with simple string message:
 
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-hello --partitions 1 --replication-factor 1
 
+topic : t-hello 
+Producer  (simple string message)
+consumer
+
+---------------------------------------------------------
+Consumer in real time access previous messages:
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-fixedrate --partitions 1 --replication-factor 1
+
+-----------------------------------------------------
+
+Producing message with keys
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-multi-partitions --partitions 3 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic t-multi-partitions
+
+create producer , start application and then check in console
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic t-multi-partitions --offset earliest --partition 0
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic t-multi-partitions --offset earliest --partition 1
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic t-multi-partitions --offset earliest --partition 2
+
+-----------------------------------------------------------------------------
+
+Produce and Consume json messages
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-employee --partitions 1 --replication-factor 1
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --offset earliest --partition 0 --topic t-employee
