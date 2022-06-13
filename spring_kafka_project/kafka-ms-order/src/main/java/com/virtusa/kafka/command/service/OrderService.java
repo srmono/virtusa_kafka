@@ -19,8 +19,7 @@ public class OrderService {
 		//Flatten message & publish
 		order.getItems().forEach(orderAction::publishToKafka);
 		
-		
-		return order;
+		return order.getOrderNumber();
 	}
 
 }

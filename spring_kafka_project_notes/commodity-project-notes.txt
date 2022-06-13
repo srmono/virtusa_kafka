@@ -1,0 +1,1 @@
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-promotion --partitions 1 --replication-factor 1

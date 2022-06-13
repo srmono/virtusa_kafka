@@ -47,3 +47,5 @@ Produce and Consume json messages
 kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-employee --partitions 1 --replication-factor 1
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --offset earliest --partition 0 --topic t-employee
+
+

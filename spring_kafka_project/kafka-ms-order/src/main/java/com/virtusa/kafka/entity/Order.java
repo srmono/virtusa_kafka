@@ -30,7 +30,7 @@ public class Order {
 	@Column
 	private String creditCardNumber;
 
-	@OneToMany
+	@OneToMany(mappedBy = "order")
 	private List<OrderItem> items;
 
 	public int getOrderId() {
