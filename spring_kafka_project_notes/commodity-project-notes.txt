@@ -6,6 +6,10 @@ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-p
 kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-order-masked --partitions 1 --replication-factor 1
 
 
+
 -- After implementation of promotion producer and api check from console
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-promotion
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-order-masked

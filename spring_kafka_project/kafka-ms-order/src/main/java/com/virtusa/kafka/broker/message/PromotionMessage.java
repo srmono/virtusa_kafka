@@ -1,8 +1,18 @@
 package com.virtusa.kafka.broker.message;
 
+
 public class PromotionMessage {
 
 	private String promotionCode;
+
+	public PromotionMessage() {
+
+	}
+
+	public PromotionMessage(String promotionCode) {
+		super();
+		this.promotionCode = promotionCode;
+	}
 
 	public String getPromotionCode() {
 		return promotionCode;
@@ -15,15 +25,6 @@ public class PromotionMessage {
 	@Override
 	public String toString() {
 		return "PromotionMessage [promotionCode=" + promotionCode + "]";
-	}
-
-	public PromotionMessage(String promotionCode) {
-		super();
-		this.promotionCode = promotionCode;
-	}
-
-	public PromotionMessage() {
-
 	}
 
 }

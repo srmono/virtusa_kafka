@@ -13,20 +13,20 @@ import com.virtusa.kafka.broker.message.PromotionMessage;
 @Service
 public class PromotionProducer {
 
-	private static final Logger LOG =LoggerFactory.getLogger(PromotionProducer.class);
-	
+	private static final Logger LOG = LoggerFactory.getLogger(PromotionProducer.class);
+
 	@Autowired
 	private KafkaTemplate<String, PromotionMessage> kafkaTemplate;
-	
+
 	public void publish(PromotionMessage message) {
 		try {
 			var sendResult = kafkaTemplate.send("t-commodity-promotion", message).get();
 			LOG.info("Send result success for message {}", sendResult.getProducerRecord().value());
 		} catch (InterruptedException | ExecutionException e) {
 			LOG.error("Error publishing {}, because {}", message, e.getMessage());
-		} 
+		}
 	}
-	
+
 }
 
 

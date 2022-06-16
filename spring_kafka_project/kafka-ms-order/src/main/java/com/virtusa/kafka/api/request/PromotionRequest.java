@@ -16,5 +16,5 @@ public class PromotionRequest {
 	public String toString() {
 		return "PromotionRequest [promotionCode=" + promotionCode + "]";
 	}
-
+	
 }

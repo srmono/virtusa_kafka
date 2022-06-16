@@ -10,9 +10,10 @@ import com.virtusa.kafka.command.action.PromotionAction;
 public class PromotionService {
 
 	@Autowired
-	private PromotionAction proAction;
+	private PromotionAction action;
 	
 	public void createPromotion(PromotionRequest request) {
-		proAction.publishToKafka(request);
+		action.publishToKafka(request);
 	}
+	
 }

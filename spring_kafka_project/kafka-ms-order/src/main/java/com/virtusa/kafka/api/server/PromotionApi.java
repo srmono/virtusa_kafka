@@ -12,19 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.virtusa.kafka.api.request.PromotionRequest;
 import com.virtusa.kafka.command.service.PromotionService;
 
-@RestController
+//@RestController
 @RequestMapping("/api/promotion")
 public class PromotionApi {
 
 	@Autowired
 	private PromotionService service;
-	
+
 	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PostMapping
 	public ResponseEntity<String> create(@RequestBody PromotionRequest request) {
-		service.createPromotion(request); 
+		System.out.println("*********************************************************" + request);
+		service.createPromotion(request);
+		System.out.println("*********************************************************" + request);
+		System.out.println("*********************************************************" + request.getPromotionCode());
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(request.getPromotionCode());
 	}
+
 }
 
 

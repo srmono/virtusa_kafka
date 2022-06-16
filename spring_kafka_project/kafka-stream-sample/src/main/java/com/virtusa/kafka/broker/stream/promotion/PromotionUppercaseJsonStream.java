@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.virtusa.kafka.broker.message.PromotionMessage;
 
-@Configuration
+//@Configuration
 public class PromotionUppercaseJsonStream {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
