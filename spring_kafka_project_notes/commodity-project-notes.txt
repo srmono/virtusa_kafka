@@ -6,6 +6,41 @@ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-p
 kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-order-masked --partitions 1 --replication-factor 1
 
 
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-one --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-reward-one --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-storage-one --partitions 1 --replication-factor 1
+
+
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-two-plastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-two-nonplastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-reward-two --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-storage-two --partitions 1 --replication-factor 1
+
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-three-plastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-three-nonplastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-reward-three --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-storage-three --partitions 1 --replication-factor 1
+
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-four-plastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-pattern-four-nonplastic --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-reward-four --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-storage-four --partitions 1 --replication-factor 1
+
+
 
 -- After implementation of promotion producer and api check from console
 
@@ -13,3 +48,25 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --t
 
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-order-masked
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-pattern-one
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-reward-one
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-storage-one
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-pattern-two-plastic
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-pattern-two-nonplastic
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-storage-two
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-pattern-three-plastic
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-reward-four
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true  --topic t-commodity-reward-four
+
