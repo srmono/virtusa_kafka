@@ -65,7 +65,6 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --t
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-pattern-three-plastic
 
-
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic t-commodity-reward-four
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true  --topic t-commodity-reward-four
