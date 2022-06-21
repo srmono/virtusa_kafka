@@ -108,6 +108,7 @@ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-c
 kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-customer-purchase-all --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true  --topic t-commodity-customer-purchase-all
 
 
 
