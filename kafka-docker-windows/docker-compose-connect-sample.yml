@@ -24,8 +24,8 @@ services:
     ports:
      - "5432:5432"
     volumes:
-      - "./postgresql/postgresql.conf:/etc/postgresql/postgresql.conf"
-      - "./postgresql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/"
+      - "//i/Training/Virtusa_Kafka/resources/kafka-docker-windows/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf"
+      - "//i/Training/Virtusa_Kafka/resources/kafka-docker-windows//postgresql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/"
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
      POSTGRES_PASSWORD: postgres

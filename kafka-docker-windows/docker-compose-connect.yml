@@ -68,9 +68,9 @@ services:
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connectors
     volumes:
-      - ./data/kafka-connect-data/connectors:/data/connectors/
-      - ./data/kafka-connect-data/inputs:/data/inputs/
-      - ./data/kafka-connect-data/errors:/data/errors/
-      - ./data/kafka-connect-data/processed:/data/processed/
+      - //i/Training/Virtusa_Kafka/resources/kafka-docker-windows/data/kafka-connect-data/connectors:/data/connectors/
+      - //i/Training/Virtusa_Kafka/resources/kafka-docker-windows/data/kafka-connect-data/inputs:/data/inputs/
+      - //i/Training/Virtusa_Kafka/resources/kafka-docker-windows/data/kafka-connect-data/errors:/data/errors/
+      - //i/Training/Virtusa_Kafka/resources/kafka-docker-windows/data/kafka-connect-data/processed:/data/processed/
     depends_on:
       - kafka
