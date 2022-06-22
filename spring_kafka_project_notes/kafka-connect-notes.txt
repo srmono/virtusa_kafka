@@ -8,6 +8,10 @@ docker-compose -f docker-compose-connect-sample.yml -p connect-sample up -d
 docker-compose -f docker-compose-connect.yml -p connect down
 docker-compose -f docker-compose-connect-sample.yml -p connect-sample down
 
+** Restart specific container
+
+docker-compose -f docker-compose-connect.yml -p connect restart kafka-connect 
+
 --------------------------
 note: Dir path change for volume mounting
 I:\Training\Virtusa_Kafka\resources\kafka-docker-windows
