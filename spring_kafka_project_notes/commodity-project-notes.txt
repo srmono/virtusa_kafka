@@ -111,22 +111,131 @@ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-c
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true  --topic t-commodity-customer-purchase-all
 
 
+------------------------------------------------------------------------------------------------------------------
+Customer Feedback good and bad
 
 
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback --partitions 1 --replication-factor 1
+
+***Scenario one Sending good feedback:-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-one-good --partitions 1 --replication-factor 1
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true  --topic t-commodity-feedback-one-good
+
+***Scenario two who own's the feedback(add location as key):-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-two-good --partitions 1 --replication-factor 1
+
+--from-beginning
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-two-good
+
+***Scenario three good or bad feedback:-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-three-good --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-three-bad --partitions 1 --replication-factor 1
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-three-good
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-three-bad
+
+***Scenario four count of each instance (group using table):-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-four-good --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-four-bad --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-four-good-count --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-four-bad-count --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-four-good
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-four-bad
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-four-good-count
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-four-bad-count
+
+***Send and Continue:-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-five-good --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-five-bad --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-five-good-count --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-five-bad-count --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-five-good
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-five-bad
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-five-good-count
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-five-bad-count
 
 
+***Scenario six overall good or bad:-
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-good --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-bad --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-good-count --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-bad-count --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-good-count-word --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-six-bad-count-word --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-six-good
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true  --topic t-commodity-feedback-six-bad
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-six-good-count
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-six-bad-count
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-six-good-count-word
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer  --topic t-commodity-feedback-six-bad-count-word
+
+-----------------------------------------------------
+wishlist and cart 
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-customer-preference-shopping-cart --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-customer-preference-wishlist --partitions 1 --replication-factor 1
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-customer-preference-all --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true --topic t-commodity-customer-preference-all
+
+----------------------------------------
+
+flash sale vote
 
 
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-flashsale-vote --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-flashsale-vote-user-item --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-flashsale-vote-one-result --partitions 1 --replication-factor 1
 
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true --topic t-commodity-flashsale-vote
 
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true --topic  t-commodity-flashsale-vote-user-item
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --topic t-commodity-flashsale-vote-one-result
+
+---------------------------------------------------------------------------
+
+Feedback rating averate rating, with state storage
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-feedback-rating-one --partitions 1 --replication-factor 1
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --property print.key=true --topic  t-commodity-feedback-rating-one
+
+----------------------------------------------------------------
+
+Inventory
+Summing the records 
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-inventory --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-inventory-total-one --partitions 1 --replication-factor 1
+
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --topic t-commodity-inventory-total-one
+
+------------------------------------------------------------
+
+Joining Streams 
+
+***Scenario Joining Payment and Order Stream 
+
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-online-order --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-online-payment --partitions 1 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic t-commodity-join-order-payment-one --partitions 1 --replication-factor 1
+
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property print.timestamp=true --topic t-commodity-online-order
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property print.timestamp=true --topic t-commodity-online-payment
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property print.timestamp=true --topic t-commodity-join-order-payment-one
 
 

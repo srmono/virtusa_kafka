@@ -2,6 +2,7 @@ package com.virtusa.kafka.config;
 
 import java.util.HashMap;
 
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.context.annotation.Bean;
@@ -18,18 +19,15 @@ public class KafkaStreamConfig {
 	public KafkaStreamsConfiguration kafkaStreamsConfig() {
 		var props = new HashMap<String, Object>();
 		
-		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-stream");
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-stream-" + System.currentTimeMillis());
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG,Serdes.String().getClass().getName());
+		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-//		props.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, "3000");
-//		props.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_V2);
-//		props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+		props.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, "3000");
+		props.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_V2);
+		props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
 		
 		return new KafkaStreamsConfiguration(props);
 	}
+	
 }
-
-
-
-
